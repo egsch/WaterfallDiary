@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Image,
   Button,
-  AsyncStorage,
   Alert,
   ScrollView,
 } from "react-native";
@@ -24,13 +23,13 @@ export var DiaryScreen = ( { navigation } ) => {
         <Text style={styles.titleText}>diary</Text>
         <ScrollView>
           {entries.map((group, index) => (
-            <View>
+            <View key = {group.key}>
               <Text style={styles.subheadText}>
                 {moment(group.groupDate).format("ddd, MMMM Do YYYY")}
               </Text>
               <View>
                 {group.dateEntries.map((item, index) => (
-                  <View>
+                  <View key={item.key}>
                       {item.entry ? <Text style={styles.diaryText}>{item.entry}</Text> : <View />}
                     {item.image ? <Image style={styles.diaryImage} source={{uri: item.image}} /> : <View />}
                   </View>
@@ -39,9 +38,6 @@ export var DiaryScreen = ( { navigation } ) => {
             </View>
           ))}
         </ScrollView>
-        <Text style={styles.smallText}>
-          Photo by José Daniel Toledo Madero on Unsplash
-        </Text>
     </View>
   );
 };

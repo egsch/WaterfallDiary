@@ -42,6 +42,9 @@ var SettingsScreen = ({ route, navigation }) => {
           onValueChange={toggleWallpaper}
         />
         </View>
+        <Text style={styles.smallText}>
+          Photo by José Daniel Toledo Madero on Unsplash
+        </Text>
         <View style={styles.bottomBar}>
           <TouchableOpacity
             onPress={(event) => {

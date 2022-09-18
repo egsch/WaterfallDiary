@@ -77,8 +77,7 @@ import Constants from "expo-constants";
     width: "100%",
   },
   diaryImage: {
-    margin: 0,
-    width: "100%",
+    margin: 10,
     minHeight: 400
   },
   thumbnail: {
@@ -92,5 +91,8 @@ import Constants from "expo-constants";
     backgroundColor: "#ffffff20",
     margin: 10,
     padding: 15
+  },
+  icons: {
+    margin: 10
   }
 });

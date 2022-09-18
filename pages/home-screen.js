@@ -7,13 +7,13 @@ import {
   ImageBackground,
   Image,
   Button,
-  AsyncStorage,
   Alert,
   ScrollView,
 } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {styles} from '../styles.js';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 var HomeScreen = ({ route, navigation }) => {
   // Redux Hooks to store
@@ -62,12 +62,12 @@ var HomeScreen = ({ route, navigation }) => {
           <View style={styles.bottomBar}>
             <TouchableOpacity onPress={()=>navigation.navigate("Settings")}>
               <View>
-                <Text style={styles.smallText}>Settings</Text>
+                <Ionicons name="md-settings-outline" size={25} color="white" style={styles.icons}></Ionicons>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigation.navigate("Camera")}>
               <View>
-                <Text style={styles.smallText}>Camera</Text>
+              <Ionicons name="md-camera-outline" size={25} color="white" style={styles.icons}></Ionicons>
               </View>
             </TouchableOpacity>
           </View>

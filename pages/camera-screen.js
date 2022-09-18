@@ -20,6 +20,7 @@ import * as Permissions from "expo-permissions";
 import Constants from "expo-constants"
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export var CameraScreen = ( {route, navigation} ) => {
 
@@ -39,7 +40,7 @@ export var CameraScreen = ( {route, navigation} ) => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       const object2 = await MediaLibrary.requestPermissionsAsync();
       setHasPermission(status === "granted" && object2.status === "granted");
     })();
@@ -103,10 +104,10 @@ export var CameraScreen = ( {route, navigation} ) => {
                   : Camera.Constants.Type.back
               );
             }}>
-              <Text style={styles.smallText}>Flip</Text>
+              <Ionicons name="md-camera-reverse-outline" size={25} color="white" style={styles.icons}></Ionicons>
             </TouchableOpacity>
             <TouchableOpacity onPress={takePicture}>
-              <Text style={styles.smallText}>Take photo</Text>
+              <Ionicons name="md-camera" size={25} color="white" style={styles.icons}></Ionicons>
             </TouchableOpacity>
           </View>
         </Camera>

@@ -7,7 +7,6 @@ import {
   ImageBackground,
   Image,
   Button,
-  AsyncStorage,
   Alert,
   ScrollView,
 } from "react-native";
@@ -27,7 +26,8 @@ import Constants from "expo-constants"
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import { AppLoading } from 'expo-app-loading';
-import { useFonts } from "expo-font"
+import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 var INITIAL_STATE = {
   entries: [
