@@ -16,7 +16,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { createStore } from "redux";
+import {configureStore} from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import moment from "moment";
@@ -48,44 +48,90 @@ var INITIAL_STATE = {
   theme: true
 };
 
+function deepCopyObj (obj) {
+  var rval;
+  switch (typeof(obj)){
+    case 'object':
+      if (obj == null) {
+        rval = null;
+      } else {
+        switch (toString.call(obj)){
+          case '[object Array]':
+            rval = obj.map(deepCopyObj);
+            break;
+          case '[object Date]':
+            rval = new Date(obj);
+            break;
+          case '[object Object]':
+            var objCopy = {};
+            for (var ikey in obj){
+              objCopy[ikey] = deepCopyObj(obj[ikey]);
+            }
+            rval = objCopy;
+            break;
+          default:
+            var objCopy = {};
+            for (var ikey in obj){
+              objCopy[ikey] = deepCopyObj(obj[ikey]);
+            }
+            rval = objCopy;
+            break;
+        }
+      }
+      break;
+    default:
+      rval = obj;
+      break;
+  }
+  return rval;
+}
+
 // Reducer for Redux store
 const rootReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "ADD":
-      var modified = [...state.entries];
+      var modified = deepCopyObj(state.entries);
       // Finds first group with date that matches entry
       var index = modified.findIndex((element) =>
         moment().isSame(element.groupDate, "day")
       );
       // If group
+      if (action.entry.length <= 5){
+        var key = action.entry.replace(/\s+/g, '') + new Date().getTime();
+      } else {
+        key = action.entry.replace(/\s+/g, '').substr(0, 5) + new Date().getTime();
+      }
       if (index >= 0) {
         var sameDay = modified[index];
-        console.log(sameDay);
         var selected = sameDay.dateEntries;
         selected.push({
-          key: index.toString() + modified[index].dateEntries.length,
+          key: key,
           entry: action.entry,
           date: moment(),
           image: action.image || null
         });
       } else {
-        modified.unshift({
-          key: modified.length + 1 + "00",
-          groupDate: moment(),
-          dateEntries: [
-            {
-              key:
-                (modified.length + 1).toString() +
-                "0",
-              entry: action.entry,
-              date: moment(),
-              image: action.image || null
-            },
-          ],
-        });
-      }
+          modified.unshift({
+            key: "date" + key,
+            groupDate: moment(),
+            dateEntries: [
+              {
+                key: key,
+                entry: action.entry,
+                date: moment(),
+                image: action.image || null
+              },
+            ],
+          });
+        }
       modified = modified.sort((a, b) => moment(b.groupDate).valueOf - moment(a.groupDate).valueOf);
       return { entries: modified, theme: state.theme };
+    case "DELETE":
+      var modified = deepCopyObj(state.entries);
+      for (let i = 0; i < modified.length; i++){
+        modified[i].dateEntries = modified[i].dateEntries.filter((arrayItem)=>arrayItem.key != action.entry);
+      }
+      return { entries: modified, theme: state.theme};
     case "CLEAR":
       return { entries: [], theme: state.theme };
     case "THEME":
@@ -100,7 +146,13 @@ const persistConfig = {
   key: "root",
 };
 const pReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(pReducer);
+const store = configureStore({
+  reducer: pReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 let persistor = persistStore(store);
 
 // Import app pages
