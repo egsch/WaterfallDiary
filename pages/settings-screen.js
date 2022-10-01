@@ -1,15 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
-  Button,
-  AsyncStorage,
   Switch,
+  TouchableOpacity
 } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {styles} from '../styles.js';
 
@@ -24,10 +21,9 @@ var SettingsScreen = ({ route, navigation }) => {
 
   // React Hooks for state
   const [wallpaper, setWallpaper] = React.useState(stateWallpaper);
-  const toggleWallpaper = () => setWallpaper((previousState) => !previousState);
-
-
-  //setWallpaper(stateWallpaper);
+  const toggleWallpaper = () => {
+    setWallpaper((previousState) => !previousState);
+  };
 
   return (
     <ImageBackground source={stateWallpaper ? image : image2} style={styles.image}>

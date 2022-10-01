@@ -1,4 +1,4 @@
-{
+ {
   "expo": {
     "name": "WaterfallDiary",
     "slug": "WaterfallDiary",
@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,6 +21,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ea741303-ae89-4d0a-9bd6-dfb448ea75a0"
+      }
+    },
+    "android": {
+      "package": "com.egsch.WaterfallDiary",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/androidiconfront.png",
+        "backgroundImage": "./assets/androidiconback.png"
+      }
     }
   }
 }

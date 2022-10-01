@@ -15,7 +15,7 @@ import { render } from "react-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput } from "react-native-gesture-handler";
 import {configureStore} from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
@@ -38,7 +38,7 @@ var INITIAL_STATE = {
         { key: 0, entry: "Hi! Waterfall diary is a beautiful and simple personal diary app. When you add entries, you'll see them here.", date: moment(), image:null },
         {
           key: 1,
-          entry: "Thanks for testing waterfall. Please send some feedback",
+          entry: "Thanks for testing waterfall. Please send some feedback!",
           date: moment(),
           image: null
         },
@@ -207,17 +207,17 @@ function NavApp() {
   <ImageBackground source={stateWallpaper ? image : image2} style={styles.image}>
   <NavigationContainer ref={navigationRef} theme={myTheme}>
     <View style={styles.statusBar} />
-    <StatusBar style = "light" hidden = {false} backgroundColor = "#444" translucent = {true}/>
+    <StatusBar style = "light" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
     <Tab.Navigator
       tabBarOptions = {{
           activeTintColor: '#fff',
           inactiveTintColor: '#999',
           pressOpacity: 0.25,
           style: {
-            backgroundColor: '#ffffff20',
+            backgroundColor: '#fff0',
             padding: 0
           },
-          tabStyle: {backgroundColor: '#ffffff20'},
+          tabStyle: {backgroundColor: '#fff4'},
           upperCaseLabel: false,
           labelStyle: {
             fontFamily: "serif",

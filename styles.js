@@ -10,12 +10,43 @@ import Constants from "expo-constants";
     flexDirection: "column",
     backgroundColor: "#fff0",
     alignItems: "flex-start",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     width: "100%",
+  },
+  scrollView: {
+    width: "100%",
+    height: "100%"
+  },
+  diaryContainer: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#fff0",
+    alignItems: "flex-start",
+    justifyContent: "space-around",
+    width: "100%"
   },
   statusBar: {
     height:  Constants.statusBarHeight,
-    backgroundColor: 'green'
+    backgroundColor: '#fff4'
+  },
+  search: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    minHeight: 75,
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  searchBox: {
+    flex: 1,
+    height: 45,
+    padding: 10,
+    color: "#fff",
+    fontSize: 15,
+    fontFamily: "Lora",
+    margin: 15,
+    backgroundColor: "#fff2"
   },
   titleText: {
     fontSize: 35,
@@ -29,14 +60,19 @@ import Constants from "expo-constants";
     color: "#fff",
     margin: 10,
   },
+  diaryEntry: {
+    backgroundColor: "#ffffff20",
+    marginHorizontal: 10,
+    marginVertical: 5
+  },
   diaryText: {
     textAlignVertical: "top",
     color: "#fff",
     fontSize: 15,
     fontFamily: "Lora",
-    backgroundColor: "#ffffff20",
     margin: 10,
-    padding: 15
+    padding: 15,
+    flex: 1
   },
   smallText: {
     fontSize: 12,
@@ -77,7 +113,8 @@ import Constants from "expo-constants";
     width: "100%",
   },
   diaryImage: {
-    margin: 10,
+    marginHorizontal: 10,
+    marginBottom: 10,
     minHeight: 400
   },
   thumbnail: {
@@ -93,6 +130,7 @@ import Constants from "expo-constants";
     padding: 15
   },
   icons: {
-    margin: 10
+    margin: 10,
+    width: 25
   }
 });

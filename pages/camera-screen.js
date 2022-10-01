@@ -7,11 +7,10 @@ import {
   ImageBackground,
   Image,
   Button,
-  AsyncStorage,
   Alert,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {styles} from '../styles.js';
 import moment from "moment";
@@ -60,13 +59,10 @@ export var CameraScreen = ( {route, navigation} ) => {
       const source = data.uri;
       if (source) {
         await cameraRef.current.pausePreview();
-        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory+"photos").catch(e=>console.log("ok cool"))
-        console.log("btw you made it this far! congrats!")
+        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory+"photos").catch(e=>console.log(e))
         setIsPreview(true);
-        console.log("source"+source);
 
         var location = FileSystem.documentDirectory+"photos/"+(moment().format('YYYYMMDDhhmmss'))+".jpg";
-        console.log("Location: "+ location);
         await FileSystem.copyAsync({
           from: source,
           to: location
@@ -91,7 +87,10 @@ export var CameraScreen = ( {route, navigation} ) => {
   if (hasPermission === null) {
     return(<Text>Null</Text>)
   } else if (hasPermission === false) {
-    return(<Text>No Permissions</Text>)
+    return(<View style={styles.container}>
+      <Text style={styles.diaryText}>Uh oh, looks like we don't have the right permissions! Please enable camera and media permissions in Settings.</Text>
+      <TouchableOpacity onPress={()=>navigation.navigate("Home")}><Text style={styles.subheadText}>home</Text></TouchableOpacity>
+    </View>)
   } else {
     return (
       <View style={styles.container}>

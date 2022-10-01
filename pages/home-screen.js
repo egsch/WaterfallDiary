@@ -9,8 +9,9 @@ import {
   Button,
   Alert,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput } from "react-native-gesture-handler";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {styles} from '../styles.js';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -38,14 +39,10 @@ var HomeScreen = ({ route, navigation }) => {
         <View style={styles.bottomBar}>
           <TouchableOpacity
             onPress={(event) => {
-              // Checks of there is text and an image
-              //if (value != "" && route.params?.image) {
+              // Checks if there is text or an image before submitting
+              if (!(value == "" && !route.params?.image)){
                 dispatch({ type: "ADD", entry: value, image: route.params?.image});
-              //} else if (value != ""){
-              //  dispatch({ type: "ADD", entry: value, image: "" });
-              //} else if (route.params?.image) {
-              //  dispatch({ type: "ADD", entry: "", image: route.params?.image});
-              //}
+              }
               navigation.setParams({image: ""})
               onChangeText("");
             }}
