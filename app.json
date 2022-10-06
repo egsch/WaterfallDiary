@@ -2,7 +2,7 @@
   "expo": {
     "name": "WaterfallDiary",
     "slug": "WaterfallDiary",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -30,8 +30,8 @@
     "android": {
       "package": "com.egsch.WaterfallDiary",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/androidiconfront.png",
-        "backgroundImage": "./assets/androidiconback.png"
+        "foregroundImage": "./assets/androidIconFront.png",
+        "backgroundImage": "./assets/androidIconBack2.png"
       }
     }
   }

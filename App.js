@@ -131,6 +131,7 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       for (let i = 0; i < modified.length; i++){
         modified[i].dateEntries = modified[i].dateEntries.filter((arrayItem)=>arrayItem.key != action.entry);
       }
+      modified = modified.filter((arrayItem)=>arrayItem.dateEntries[0] != undefined)
       return { entries: modified, theme: state.theme};
     case "CLEAR":
       return { entries: [], theme: state.theme };
