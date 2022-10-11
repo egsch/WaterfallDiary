@@ -80,6 +80,15 @@ import Constants from "expo-constants";
     color: "#fff",
     margin: 10,
   },
+  button: {
+    fontSize: 12,
+    fontFamily: "Lora",
+    color: "#fff",
+    padding: 8,
+    backgroundColor: "#fff2",
+    margin: 3,
+    textAlign: "center"
+  },
   image: {
     flex: 1,
     resizeMode: "cover",
@@ -125,6 +134,7 @@ import Constants from "expo-constants";
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: "#ffffff20",
     margin: 10,
     padding: 15
@@ -132,5 +142,8 @@ import Constants from "expo-constants";
   icons: {
     margin: 10,
     width: 25
+  },
+  pdfImage: {
+    maxWidth: "90vw"
   }
 });

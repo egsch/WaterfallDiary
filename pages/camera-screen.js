@@ -20,6 +20,7 @@ import Constants from "expo-constants"
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 export var CameraScreen = ( {route, navigation} ) => {
 
@@ -40,8 +41,7 @@ export var CameraScreen = ( {route, navigation} ) => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      const object2 = await MediaLibrary.requestPermissionsAsync();
-      setHasPermission(status === "granted" && object2.status === "granted");
+      setHasPermission(status === "granted");
     })();
   }, []);
 
@@ -54,17 +54,24 @@ export var CameraScreen = ( {route, navigation} ) => {
 
   const takePicture = async () => {
     if (cameraRef.current) {
-      const options = {quality: 0.5, base64: true, skipProcessing: true, ratio: supportedRatio}
+      const options = {quality: 0.5, base64: false, skipProcessing: true, ratio: supportedRatio}
       const data = await cameraRef.current.takePictureAsync(options);
+      // if you ever switch to base64: const base64 = data.base64; Also set base64: true in options
       const source = data.uri;
       if (source) {
+        const manipResult = await manipulateAsync(
+          source,
+          [{ resize: { height: 1000 }}],
+          { compress: 0.5, format: SaveFormat.JPG }
+        );
+
         await cameraRef.current.pausePreview();
         FileSystem.makeDirectoryAsync(FileSystem.documentDirectory+"photos").catch(e=>console.log(e))
         setIsPreview(true);
 
         var location = FileSystem.documentDirectory+"photos/"+(moment().format('YYYYMMDDhhmmss'))+".jpg";
         await FileSystem.copyAsync({
-          from: source,
+          from: manipResult.uri,
           to: location
         });
         await console.log("File contents: " + FileSystem.readAsStringAsync(location).toString())
@@ -73,9 +80,6 @@ export var CameraScreen = ( {route, navigation} ) => {
           params: {image: location},
           merge:true
         });
-        // (need to add params to HomeScreen)
-        // then access state on press of "submit"
-        // and use <Image> with an if loop to display image in diary screen
       } else {
         console.log("failure")
       }
